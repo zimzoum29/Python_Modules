@@ -1,4 +1,4 @@
-def ft_count_harvest_recursive(limit=None, where=None):
+def ft_count_harvest_recursive(limit: None = None, where: None = None) -> None:
     if limit is None:
         limit = int(input("Days until harvest: "))
     where = where or 0

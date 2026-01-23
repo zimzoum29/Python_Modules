@@ -1,19 +1,19 @@
 class Plant:
-    def __init__(self, name, height, age):
-        self.name = name
-        self.height = height
-        self.age = age
+    def __init__(self, name: str, height: int, age: int) -> None:
+        self.name: str = name
+        self.height: int = height
+        self.age: int = age
 
-    def display(self):
+    def display(self) -> None:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
 if __name__ == "__main__":
-    plant1 = Plant("Rose", 25, 30)
-    plant2 = Plant("Sunflower", 80, 45)
-    plant3 = Plant("Cactus", 15, 120)
-
+    plants: list[Plant] = [
+        Plant("Rose", 25, 30),
+        Plant("Sunflower", 80, 45),
+        Plant("Cactus", 15, 120)
+    ]
     print("=== Garden Plant Registry ===")
-    plant1.display()
-    plant2.display()
-    plant3.display()
+    for plant in plants:
+        plant.display()
