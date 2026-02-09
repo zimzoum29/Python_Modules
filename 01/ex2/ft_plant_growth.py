@@ -1,27 +1,36 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str, height: int, days: int) -> None:
         self.name: str = name
         self.height: int = height
-        self.days: int = age
+        self.days: int = days
 
-    def grow(self):
+    def grow(self) -> None:
         self.height += 1
 
-    def age(self):
+    def age(self) -> None:
         self.days += 1
 
-    def get_status(self):
+    def get_status(self) -> None:
         print(f"{self.name}: {self.height}cm, {self.days} days old")
 
 
-if __name__ == "__main__":
-    plant: Plant = Plant("Rose", 25, 30)
-    start_height: int = plant.height
+def main() -> None:
+    plant = Plant("Rose", 25, 30)
+    start_height = plant.height
+
     print("=== Day 1 ===")
     plant.get_status()
-    for _ in range(6):
+    for i in range(6):
         plant.grow()
         plant.age()
+
     print("=== Day 7 ===")
     plant.get_status()
-    print("Growth this week: +" + str(plant.height - start_height) + "cm")
+    print(f"Growth this week: +{plant.height - start_height}cm")
+
+    print()
+    print("=== End of Program ===")
+
+
+if __name__ == "__main__":
+    main()

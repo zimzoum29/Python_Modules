@@ -8,12 +8,20 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
-if __name__ == "__main__":
+def main() -> None:
     plants: list[Plant] = [
         Plant("Rose", 25, 30),
         Plant("Sunflower", 80, 45),
         Plant("Cactus", 15, 120)
     ]
+
     print("=== Garden Plant Registry ===")
+    print()
     for plant in plants:
         plant.display()
+    print()
+    print("=== End of Program ===")
+
+
+if __name__ == "__main__":
+    main()
