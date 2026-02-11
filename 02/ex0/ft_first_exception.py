@@ -27,6 +27,8 @@ def test_temperature_input() -> None:
     check_temperature("-50")
     print()
     print("All tests completed - program didn't crash!")
+    print()
+    print("=== End of Program ===")
 
 
 if __name__ == "__main__":
