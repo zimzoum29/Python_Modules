@@ -1,7 +1,7 @@
 class GardenError(Exception):
     error_msg = "Garden Error !"
 
-    def __init__(self, msg: str = None):
+    def __init__(self, msg: str = None) -> None:
         super().__init__(msg if msg is not None else self.error_msg)
 
 
@@ -19,7 +19,7 @@ def check_plant_status(plant_name: str) -> None:
 
 def check_water_level(water_amount: int) -> None:
     if water_amount < 5:
-        raise WaterError("")
+        raise WaterError("Not enough water in the tank!")
 
 
 def test_custom_errors() -> None:
