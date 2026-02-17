@@ -5,6 +5,8 @@ def check_temperature(temp_str: str) -> int:
     except ValueError:
         print(f"Error: '{temp_str}' is not a valid number")
         return None
+    except Exception as e:
+        print("Error:", e)
     if temp < 0:
         print(f"Error: {temp}°C is too cold for plants (min 0°C)")
     elif temp < 40:

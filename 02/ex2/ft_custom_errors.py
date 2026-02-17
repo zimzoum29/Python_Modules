@@ -1,25 +1,28 @@
 class GardenError(Exception):
-    pass
+    error_msg = "Garden Error !"
+
+    def __init__(self, msg: str = None):
+        super().__init__(msg if msg is not None else self.error_msg)
 
 
 class PlantError(GardenError):
-    pass
+    error_msg = "Plant Error !"
 
 
 class WaterError(GardenError):
-    pass
+    error_msg = "Water Error !"
 
 
-def check_plant_status(plant_name):
+def check_plant_status(plant_name: str) -> None:
     raise PlantError(f"The {plant_name} plant is wilting!")
 
 
-def check_water_level(water_amount):
+def check_water_level(water_amount: int) -> None:
     if water_amount < 5:
-        raise WaterError("Not enough water in the tank!")
+        raise WaterError("")
 
 
-def test_custom_errors():
+def test_custom_errors() -> None:
     print("=== Custom Garden Errors Demo ===\n")
 
     try:
@@ -27,6 +30,8 @@ def test_custom_errors():
         check_plant_status("tomato")
     except PlantError as e:
         print("Caught PlantError:", e)
+    except Exception as e:
+        print("Error:", e)
 
     print()
 
@@ -35,6 +40,8 @@ def test_custom_errors():
         check_water_level(0)
     except WaterError as e:
         print("Caught WaterError:", e)
+    except Exception as e:
+        print("Error:", e)
 
     print()
 
@@ -47,8 +54,12 @@ def test_custom_errors():
                 check_water_level(0)
         except GardenError as e:
             print("Caught a garden error:", e)
+        except Exception as e:
+            print("Error:", e)
 
     print("\nAll custom error types work correctly!")
+    print()
+    print("=== End of Program ===")
 
 
 if __name__ == "__main__":
