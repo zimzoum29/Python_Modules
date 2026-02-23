@@ -1,7 +1,7 @@
 import math
 
 
-def distance_3d(p1, p2) -> float:
+def distance_3d(p1: tuple[int, int, int], p2: tuple[int, int, int]) -> float:
     x1, y1, z1 = p1
     x2, y2, z2 = p2
     return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2 + (z2 - z1) ** 2)
