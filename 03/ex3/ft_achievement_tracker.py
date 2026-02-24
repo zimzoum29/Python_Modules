@@ -1,25 +1,25 @@
 def main() -> None:
     print("=== Achievement Tracker System ===\n")
 
-    rayan = set([
+    rayan = {
         "first_kill",
         "level_10",
         "treasure_hunter",
-        "speed_demon"
-    ])
-    pablo = set([
+        "speed_demon",
+    }
+    pablo = {
         "first_kill",
         "level_10",
         "boss_slayer",
         "collector"
-    ])
-    matisse = set([
+    }
+    matisse = {
         "level_10",
         "treasure_hunter",
         "boss_slayer",
         "speed_demon",
         "perfectionist",
-    ])
+    }
 
     print(f"Player Rayan achievements: {rayan}")
     print(f"Player Pablo achievements: {pablo}")

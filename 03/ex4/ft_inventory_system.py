@@ -19,6 +19,8 @@ def parse_inventory_args(argv: list[str]) -> dict:
 
         try:
             qty = int(qty_str)
+            if qty <= 0:
+                raise ValueError
         except ValueError:
             print(f"Invalid quantity ignored: {token}")
             i += 1
