@@ -9,22 +9,23 @@ def categorize_score(score: int) -> str:
 def main() -> None:
     print("=== Game Analytics Dashboard ===\n")
 
-    players = ["alice", "bob", "charlie", "diana"]
+    players = ["rayan", "pablo", "matisse", "balt"]
     scores = [2300, 1800, 2150, 2050]
 
     achievements = {
-        "alice": [
+        "rayan": [
             "first_kill",
             "level_10",
             "treasure_hunter",
             "speed_demon",
             "collector"],
 
-        "bob": ["first_kill",
-                "level_10",
-                "boss_slayer"],
+        "pablo": [
+            "first_kill",
+            "level_10",
+            "boss_slayer"],
 
-        "charlie": ["level_10",
+        "matisse": ["level_10",
                     "boss_slayer",
                     "treasure_hunter",
                     "perfectionist",
@@ -32,17 +33,18 @@ def main() -> None:
                     "collector",
                     "first_kill"],
 
-        "diana": ["first_kill",
-                  "level_10",
-                  "treasure_hunter",
-                  "boss_slayer"],
+        "balt": [
+            "first_kill",
+            "level_10",
+            "treasure_hunter",
+            "boss_slayer"],
     }
 
     regions = {
-        "alice": "north",
-        "bob": "east",
-        "charlie": "central",
-        "diana": "east",
+        "rayan": "north",
+        "pablo": "east",
+        "matisse": "central",
+        "balt": "east",
     }
 
     print("=== List Comprehension Examples ===")

@@ -1,7 +1,7 @@
 import sys
 
 
-def parse_inventory_args(argv):
+def parse_inventory_args(argv: list[str]) -> dict:
     inventory = dict()
 
     i = 1
@@ -32,14 +32,14 @@ def parse_inventory_args(argv):
     return inventory
 
 
-def total_quantity(inventory):
+def total_quantity(inventory: dict) -> int:
     total = 0
     for _, qty in inventory.items():
         total += qty
     return total
 
 
-def print_keys_line(inventory):
+def print_keys_line(inventory: dict) -> None:
     out = ""
     first = True
     for k in inventory.keys():
@@ -50,7 +50,7 @@ def print_keys_line(inventory):
     print(out)
 
 
-def print_values_line(inventory):
+def print_values_line(inventory: dict) -> None:
     out = ""
     first = True
     for v in inventory.values():
@@ -61,7 +61,7 @@ def print_values_line(inventory):
     print(out)
 
 
-def main():
+def main() -> None:
     inventory = parse_inventory_args(sys.argv)
 
     print("=== Inventory System Analysis ===")
