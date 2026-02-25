@@ -1,7 +1,7 @@
 def main() -> None:
     filename: str = "ancient_fragment.txt"
 
-    print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===")
+    print("=== CYBER ARCHIVES - DATA RECOVERY SYSTEM ===\n")
     print(f"Accessing Storage Vault: {filename}")
 
     try:
@@ -11,11 +11,11 @@ def main() -> None:
         return
 
     try:
-        print("Connection established...")
+        print("Connection established...\n")
         print("RECOVERED DATA:")
         for line in f:
             print(line.rstrip("\n"))
-        print("Data recovery complete. Storage unit disconnected.")
+        print("\nData recovery complete. Storage unit disconnected.")
     finally:
         f.close()
 
