@@ -1,8 +1,8 @@
 def handle_access(filename: str, label: str) -> None:
     if label == "CRISIS":
-        print(f"CRISIS ALERT: Attempting access to '{filename}'...")
+        print(f"\nCRISIS ALERT: Attempting access to '{filename}'...")
     else:
-        print(f"ROUTINE ACCESS: Attempting access to '{filename}'...")
+        print(f"\nROUTINE ACCESS: Attempting access to '{filename}'...")
 
     try:
         with open(filename, "r", encoding="utf-8") as f:
@@ -34,7 +34,7 @@ def main() -> None:
     handle_access("classified_vault.txt", "CRISIS")
     handle_access("standard_archive.txt", "ROUTINE")
 
-    print("All crisis scenarios handled successfully. Archives secure.")
+    print("\nAll crisis scenarios handled successfully. Archives secure.")
 
 
 if __name__ == "__main__":

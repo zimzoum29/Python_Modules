@@ -14,8 +14,9 @@ class DataStream(ABC):
     def process_batch(self, data_batch: List[Any]) -> str:
         pass
 
-    def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
-        # default: no filter
+    def filter_data(
+            self, data_batch: List[Any], criteria: Optional[str] = None
+            ) -> List[Any]:
         _ = criteria
         return data_batch
 
@@ -47,7 +48,6 @@ class SensorStream(DataStream):
 
     def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
         if criteria == "critical":
-            # ex: keep only strings containing "ALERT"
             return [x for x in data_batch if isinstance(x, str) and "ALERT" in x]
         return super().filter_data(data_batch, criteria)
 
@@ -77,7 +77,6 @@ class TransactionStream(DataStream):
 
     def filter_data(self, data_batch: List[Any], criteria: Optional[str] = None) -> List[Any]:
         if criteria == "large":
-            # keep only amounts >= 100 (simple rule)
             out: List[Any] = []
             for x in data_batch:
                 if isinstance(x, str) and ":" in x:

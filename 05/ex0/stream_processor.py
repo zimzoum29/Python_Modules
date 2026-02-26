@@ -26,7 +26,8 @@ class NumericProcessor(DataProcessor):
             total = sum(values)
             count = len(values)
             avg = total / count if count > 0 else 0.0
-            return f"Processed {count} numeric values, sum={int(total) if total.is_integer() else total}, avg={avg}"
+            return f"Processed {count} numeric values, sum=\
+{int(total) if total.is_integer() else total}, avg={avg}"
         except (TypeError, ValueError):
             return "Error: NumericProcessor received invalid data"
 
@@ -49,8 +50,8 @@ class TextProcessor(DataProcessor):
                 raise ValueError("Invalid text data")
             text = data
             char_count = len(text)
-            word_count = len([w for w in text.split() if w])
-            return f"Processed text: {char_count} characters, {word_count} words"
+            wcount = len([w for w in text.split() if w])
+            return f"Processed text: {char_count} characters, {wcount} words"
         except (TypeError, ValueError):
             return "Error: TextProcessor received invalid data"
 
@@ -87,16 +88,15 @@ class LogProcessor(DataProcessor):
         return isinstance(data, str) and len(data.strip()) > 0
 
     def format_output(self, result: str) -> str:
-        # override volontaire (mais simple)
         return f"Output: {result}"
 
 
 def polymorphic_demo() -> None:
-    print("=== Polymorphic Processing Demo ===")
+    print("\n=== Polymorphic Processing Demo ===")
     processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
     samples = [[1, 2, 3], "Hello Nexus", "INFO: System ready"]
 
-    print("Processing multiple data types through same interface...")
+    print("\nProcessing multiple data types through same interface...")
     for i, (proc, sample) in enumerate(zip(processors, samples), start=1):
         res = proc.process(sample)
         print(f"Result {i}:", res)
@@ -105,23 +105,27 @@ def polymorphic_demo() -> None:
 def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
-    print("Initializing Numeric Processor...")
+    print("\nInitializing Numeric Processor...")
     num = NumericProcessor()
-    print("Validation: Numeric data verified" if num.validate([1, 2, 3, 4, 5]) else "Validation: Failed")
+    print("Validation: Numeric data verified"
+          if num.validate([1, 2, 3, 4, 5]) else "Validation: Failed")
     print(num.format_output(num.process([1, 2, 3, 4, 5])))
 
-    print("Initializing Text Processor...")
+    print("\nInitializing Text Processor...")
     txt = TextProcessor()
-    print("Validation: Text data verified" if txt.validate("Hello Nexus World") else "Validation: Failed")
+    print("Validation: Text data verified"
+          if txt.validate("Hello Nexus World") else "Validation: Failed")
     print(txt.format_output(txt.process("Hello Nexus World")))
 
-    print("Initializing Log Processor...")
+    print("\nInitializing Log Processor...")
     log = LogProcessor()
-    print("Validation: Log entry verified" if log.validate("ERROR: Connection timeout") else "Validation: Failed")
+    print("Validation: Log entry verified"
+          if log.validate("ERROR: Connection timeout")
+          else "Validation: Failed")
     print(log.format_output(log.process("ERROR: Connection timeout")))
 
     polymorphic_demo()
-    print("Foundation systems online. Nexus ready for advanced streams.")
+    print("\nFoundation systems online. Nexus ready for advanced streams.")
 
 
 if __name__ == "__main__":
