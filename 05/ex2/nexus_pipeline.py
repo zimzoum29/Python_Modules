@@ -53,7 +53,6 @@ class ProcessingPipeline(ABC):
 
 class InputStage:
     def process(self, data: Any) -> Any:
-        # validation/parsing light
         if data is None:
             raise ValueError("data is None")
         return data
@@ -61,7 +60,6 @@ class InputStage:
 
 class TransformStage:
     def process(self, data: Any) -> Any:
-        # enrichment/transformation light
         if isinstance(data, dict):
             out = dict(data)
             out["_meta"] = {"validated": True}
@@ -85,8 +83,6 @@ class JSONAdapter(ProcessingPipeline):
             raw = data.strip()
             if not (raw.startswith("{") and raw.endswith("}")):
                 raise ValueError("invalid JSON-like input")
-            # parsing minimal (pas un vrai JSON parser pour rester simple)
-            # ex: {"sensor":"temp","value":23.5,"unit":"C"}
             cleaned = raw[1:-1].strip()
             items = [x.strip() for x in cleaned.split(",") if x.strip()]
             parsed: Dict[str, Any] = {}
@@ -177,7 +173,6 @@ class NexusManager:
 
 
 def build_stages() -> List[ProcessingStage]:
-    # stages via duck typing (Protocol)
     return [InputStage(), TransformStage(), OutputStage()]
 
 

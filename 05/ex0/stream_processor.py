@@ -26,8 +26,10 @@ class NumericProcessor(DataProcessor):
             total = sum(values)
             count = len(values)
             avg = total / count if count > 0 else 0.0
-            return f"Processed {count} numeric values, sum=\
-{int(total) if total.is_integer() else total}, avg={avg}"
+            res = (f"Processed {count} numeric values, "
+                   f"sum={int(total) if total.is_integer() else total}, "
+                   f"avg={avg}")
+            return res
         except (TypeError, ValueError):
             return "Error: NumericProcessor received invalid data"
 
