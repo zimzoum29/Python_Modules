@@ -46,7 +46,7 @@ class NumericProcessor(DataProcessor):
 
 class TextProcessor(DataProcessor):
     def process(self, data: Any) -> str:
-        print("Processing data:", repr(data))
+        print("Processing data:", data)
         try:
             if not self.validate(data):
                 raise ValueError("Invalid text data")
@@ -63,7 +63,7 @@ class TextProcessor(DataProcessor):
 
 class LogProcessor(DataProcessor):
     def process(self, data: Any) -> str:
-        print("Processing data:", repr(data))
+        print("Processing data:", data)
         try:
             if not self.validate(data):
                 raise ValueError("Invalid log entry")
@@ -93,17 +93,6 @@ class LogProcessor(DataProcessor):
         return f"Output: {result}"
 
 
-def polymorphic_demo() -> None:
-    print("\n=== Polymorphic Processing Demo ===")
-    processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
-    samples = [[1, 2, 3], "Hello Nexus", "INFO: System ready"]
-
-    print("\nProcessing multiple data types through same interface...")
-    for i, (proc, sample) in enumerate(zip(processors, samples), start=1):
-        res = proc.process(sample)
-        print(f"Result {i}:", res)
-
-
 def main() -> None:
     print("=== CODE NEXUS - DATA PROCESSOR FOUNDATION ===")
 
@@ -126,7 +115,15 @@ def main() -> None:
           else "Validation: Failed")
     print(log.format_output(log.process("ERROR: Connection timeout")))
 
-    polymorphic_demo()
+    print("\n=== Polymorphic Processing Demo ===")
+    processors = [NumericProcessor(), TextProcessor(), LogProcessor()]
+    samples = [[1, 2, 3], "Hello Nexus", "INFO: System ready"]
+
+    print("\nProcessing multiple data types through same interface...")
+    for i, (proc, sample) in enumerate(zip(processors, samples), start=1):
+        res = proc.process(sample)
+        print(f"Result {i}:", res)
+
     print("\nFoundation systems online. Nexus ready for advanced streams.")
 
 

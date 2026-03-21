@@ -14,9 +14,14 @@ class ProcessingStage(Protocol):
 
 
 class ProcessingPipeline(ABC):
-    def __init__(self, pipeline_id: str, stages: Optional[List[ProcessingStage]] = None) -> None:
+    def __init__(
+        self,
+        pipeline_id: str,
+        stages: Optional[List[ProcessingStage]] = None
+            ) -> None:
         self.pipeline_id: str = pipeline_id
-        self.stages: List[ProcessingStage] = stages if stages is not None else []
+        self.stages: List[ProcessingStage] = stages \
+            if stages is not None else []
         self.processed_count: int = 0
         self.error_count: int = 0
         self.last_error: str = ""
@@ -41,7 +46,8 @@ class ProcessingPipeline(ABC):
         pass
 
     def stats(self) -> Dict[str, Union[str, int, float]]:
-        avg = (sum(self._latencies) / len(self._latencies)) if self._latencies else 0.0
+        avg = (sum(self._latencies) / len(self._latencies)) \
+            if self._latencies else 0.0
         return {
             "pipeline_id": self.pipeline_id,
             "processed": self.processed_count,
@@ -155,7 +161,11 @@ class NexusManager:
     def add_pipeline(self, pipeline: ProcessingPipeline) -> None:
         self.pipelines.append(pipeline)
 
-    def run_pipeline(self, pipeline: ProcessingPipeline, data: Any) -> Union[str, Any]:
+    def run_pipeline(
+        self,
+        pipeline: ProcessingPipeline,
+        data: Any
+            ) -> Union[str, Any]:
         return pipeline.process(data)
 
     def chain(self, chain_list: List[ProcessingPipeline], data: Any) -> Any:
@@ -164,7 +174,12 @@ class NexusManager:
             current = pipe.process(current)
         return current
 
-    def recover(self, primary: ProcessingPipeline, backup: ProcessingPipeline, data: Any) -> Union[str, Any]:
+    def recover(
+        self,
+        primary: ProcessingPipeline,
+        backup: ProcessingPipeline,
+        data: Any
+            ) -> Union[str, Any]:
         try:
             return primary.process(data)
         except Exception:
@@ -241,7 +256,9 @@ def main() -> None:
 
     st = json_pipe.stats()
     if isinstance(st.get("avg_latency_s"), float):
-        print(f"Performance: avg latency {st['avg_latency_s']}s, errors={st['errors']}")
+        print(
+            f"Performance: avg latency "
+            f"{st['avg_latency_s']}s, errors={st['errors']}")
 
     print("Nexus Integration complete. All systems operational.")
 
