@@ -1,56 +1,63 @@
-from typing import List, Dict
-from ex4.TournamentCard import TournamentCard
+import uuid
+from .TournamentCard import TournamentCard
 
 
 class TournamentPlatform:
 
     def __init__(self):
-        self.participants: List[TournamentCard] = []
-        self.match_history: List[Dict] = []
+        self.cards = {}
+        self.matches_played = 0
 
-    def register_card(self, card: TournamentCard) -> None:
-        if isinstance(card, TournamentCard):
-            self.participants.append(card)
+    def register_card(self, card: TournamentCard) -> str:
+        card_id = str(uuid.uuid4())
+        self.cards[card_id] = card
+        return card_id
 
-    def run_match(
-        self,
-        card_a: TournamentCard,
-        card_b: TournamentCard
-            ) -> Dict:
-        power_a = card_a.attack_val + card_a.magic_power
-        power_b = card_b.attack_val + card_b.magic_power
+    def create_match(self, card1_id: str, card2_id: str) -> dict:
+        card1 = self.cards[card1_id]
+        card2 = self.cards[card2_id]
 
-        winner, loser = (card_a, card_b) if power_a >= power_b \
-            else (card_b, card_a)
+        if card1.attack_power >= card2.attack_power:
+            winner, loser = card1, card2
+            winner_id, loser_id = card1_id, card2_id
+        else:
+            winner, loser = card2, card1
+            winner_id, loser_id = card2_id, card1_id
 
-        winner.update_rating(20)
-        loser.update_rating(-15)
+        winner.update_wins(1)
+        loser.update_losses(1)
 
-        result = {
-            "winner": winner.get_unique_id(),
-            "loser": loser.get_unique_id(),
-            "winner_rating": winner.rating,
-            "loser_rating": loser.rating
-        }
-        self.match_history.append(result)
-        return result
+        self.matches_played += 1
 
-    def get_leaderboard(self) -> List[str]:
-        sorted_cards = sorted(
-            self.participants,
-            key=lambda x: x.rating,
-            reverse=True
-        )
-        return [
-            f"{c.name} - Rating: {c.rating} ({c.wins}-{c.losses})"
-            for c in sorted_cards
-        ]
-
-    def get_platform_report(self) -> Dict:
-        total_rating = sum(c.rating for c in self.participants)
         return {
-            "total_cards": len(self.participants),
-            "matches_played": len(self.match_history),
-            "avg_rating": total_rating // len(self.participants)
-            if self.participants else 0
+            "winner": winner_id,
+            "loser": loser_id,
+            "winner_rating": winner.calculate_rating(),
+            "loser_rating": loser.calculate_rating()
+        }
+
+    def get_leaderboard(self) -> list:
+        leaderboard = []
+
+        for card_id, card in self.cards.items():
+            stats = card.get_tournament_stats()
+            leaderboard.append((card_id, stats))
+
+        leaderboard.sort(key=lambda x: x[1]["rating"], reverse=True)
+
+        return leaderboard
+
+    def generate_tournament_report(self) -> dict:
+        total_cards = len(self.cards)
+        avg_rating = (
+            sum(card.calculate_rating() for card
+                in self.cards.values()) / total_cards
+            if total_cards > 0 else 0
+        )
+
+        return {
+            "total_cards": total_cards,
+            "matches_played": self.matches_played,
+            "avg_rating": int(avg_rating),
+            "platform_status": "active"
         }

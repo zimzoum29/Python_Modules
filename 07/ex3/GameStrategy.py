@@ -1,11 +1,10 @@
 from abc import ABC, abstractmethod
-from typing import Dict, List
 
 
 class GameStrategy(ABC):
 
     @abstractmethod
-    def execute_turn(self, hand: List, battlefield: List) -> Dict:
+    def execute_turn(self, hand: list, battlefield: list) -> dict:
         pass
 
     @abstractmethod
@@ -13,5 +12,5 @@ class GameStrategy(ABC):
         pass
 
     @abstractmethod
-    def prioritize_targets(self, available_targets: List) -> List:
+    def prioritize_targets(self, available_targets: list) -> list:
         pass

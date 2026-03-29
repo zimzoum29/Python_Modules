@@ -1,35 +1,25 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Union
-from ex0.Card import Card
+from ex0 import Card
 
 
 class CardFactory(ABC):
 
     @abstractmethod
-    def create_creature(
-            self,
-            name_or_power: Union[str, int, None] = None
-            ) -> Card:
+    def create_creature(self, name_or_power=None) -> Card:
         pass
 
     @abstractmethod
-    def create_spell(
-            self,
-            name_or_power: Union[str, int, None] = None
-            ) -> Card:
+    def create_spell(self, name_or_power=None) -> Card:
         pass
 
     @abstractmethod
-    def create_artifact(
-            self,
-            name_or_power: Union[str, int, None] = None
-            ) -> Card:
+    def create_artifact(self, name_or_power=None) -> Card:
         pass
 
     @abstractmethod
-    def create_themed_deck(self, size: int) -> Dict:
+    def create_themed_deck(self, size: int) -> dict:
         pass
 
     @abstractmethod
-    def get_supported_types(self) -> Dict:
+    def get_supported_types(self) -> dict:
         pass

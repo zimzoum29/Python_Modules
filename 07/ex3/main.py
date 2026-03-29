@@ -1,33 +1,39 @@
-from ex3.GameEngine import GameEngine
-from ex3.FantasyCardFactory import FantasyCardFactory
-from ex3.AggressiveStrategy import AggressiveStrategy
+from .GameEngine import GameEngine
+from .FantasyCardFactory import FantasyCardFactory
+from .AggressiveStrategy import AggressiveStrategy
 
 
 def main():
-    print("=== DataDeck Game Engine ===")
-    engine = GameEngine()
+    print("\n=== DataDeck Game Engine ===\n")
+
+    print("Configuring Fantasy Card Game...")
     factory = FantasyCardFactory()
     strategy = AggressiveStrategy()
 
-    print("Configuring Fantasy Card Game...")
+    engine = GameEngine()
     engine.configure_engine(factory, strategy)
 
     print(f"Factory: {factory.__class__.__name__}")
     print(f"Strategy: {strategy.get_strategy_name()}")
-    print(f"Available types: {factory.get_supported_types()}")
+    print(f"Available types: {factory.get_supported_types()}\n")
 
-    print("\nSimulating aggressive turn...")
-    print("Hand: [Fire Dragon (5), Goblin Warrior (2), Lightning Bolt (3)]")
+    print("Simulating aggressive turn...")
+    hand_display = [f"{card.name} ({card.cost})" for card in engine.hand]
+    print(f"Hand: {hand_display}\n")
 
-    turn_result = engine.simulate_turn()
-    print("\nTurn execution:")
-    print(f"Strategy: {turn_result['strategy']}")
-    print(f"Actions: {turn_result['actions']}")
+    result = engine.simulate_turn()
 
-    print("\nGame Report:")
-    print(engine.get_engine_status())
-    print("\nAbstract Factory + Strategy Pattern: ")
-    print("Maximum flexibility achieved!")
+    print("Turn execution:")
+    print(f"Strategy: {strategy.get_strategy_name()}")
+    print(f"Actions: {result}\n")
+
+    report = engine.get_engine_status()
+
+    print("Game Report:")
+    print(report)
+
+    print(
+        "\nAbstract Factory + Strategy Pattern: Maximum flexibility achieved!")
 
 
 if __name__ == "__main__":

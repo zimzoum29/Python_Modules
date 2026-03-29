@@ -1,45 +1,42 @@
-from ex3.CardFactory import CardFactory
-from ex3.GameStrategy import GameStrategy
-from typing import Dict, Optional
+from .CardFactory import CardFactory
+from .GameStrategy import GameStrategy
 
 
 class GameEngine:
 
     def __init__(self):
-        self.factory: Optional[CardFactory] = None
-        self.strategy: Optional[GameStrategy] = None
-        self.turns_simulated = 0
+        self.factory: CardFactory | None = None
+        self.strategy: GameStrategy | None = None
+        self.hand = []
+        self.battlefield = []
+        self.turns = 0
+        self.total_damage = 0
 
     def configure_engine(
-            self, factory: CardFactory,
-            strategy: GameStrategy
-            ) -> None:
+            self,
+            factory: CardFactory, strategy: GameStrategy
+                ) -> None:
         self.factory = factory
         self.strategy = strategy
 
-    def simulate_turn(self) -> Dict:
-        if not self.factory or not self.strategy:
-            raise ValueError("Engine must be configured before simulation.")
+        deck_data = self.factory.create_themed_deck(3)
+        self.hand = deck_data["deck"]
 
-        self.turns_simulated += 1
-        hand = [
-            self.factory.create_creature("Fire Dragon"),
-            self.factory.create_creature("Goblin Warrior"),
-            self.factory.create_spell("Lightning Bolt")
-        ]
-        hand[0].cost = 5
+    def simulate_turn(self) -> dict:
+        if not self.strategy:
+            raise ValueError("Strategy not configured")
 
-        turn_execution = self.strategy.execute_turn(hand, [])
+        result = self.strategy.execute_turn(self.hand, self.battlefield)
+
+        self.turns += 1
+        self.total_damage += result["damage_dealt"]
+
+        return result
+
+    def get_engine_status(self) -> dict:
         return {
-            "strategy": self.strategy.get_strategy_name(),
-            "actions": turn_execution
-        }
-
-    def get_engine_status(self) -> Dict:
-        return {
-            "turns_simulated": self.turns_simulated,
-            "strategy_used": self.strategy.get_strategy_name()
-            if self.strategy else None,
-            "total_damage": 8,
-            "cards_created": 3
+            "turns_simulated": self.turns,
+            "strategy_used": self.strategy.get_strategy_name(),
+            "total_damage": self.total_damage,
+            "cards_created": len(self.hand)
         }

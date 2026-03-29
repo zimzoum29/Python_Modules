@@ -1,9 +1,9 @@
-from ex0.CreatureCard import CreatureCard
+from .CreatureCard import CreatureCard
 
 
-def main():
-    print("=== DataDeck Card Foundation ===")
-    print("Testing Abstract Base Class Design:")
+def main() -> None:
+    print("\n=== DataDeck Card Foundation ===\n")
+    print("Testing Abstract Base Class Design:\n")
 
     dragon = CreatureCard(
         name="Fire Dragon",
