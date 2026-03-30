@@ -1,4 +1,5 @@
 from .CreatureCard import CreatureCard
+from .CardEnums import CardRarity
 
 
 def main() -> None:
@@ -8,7 +9,7 @@ def main() -> None:
     dragon = CreatureCard(
         name="Fire Dragon",
         cost=5,
-        rarity="Legendary",
+        rarity=CardRarity.LEGENDARY,
         attack=7,
         health=5
     )

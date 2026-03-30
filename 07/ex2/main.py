@@ -1,7 +1,8 @@
 from .EliteCard import EliteCard
 from .Combatable import Combatable
 from .Magical import Magical
-from ex0.Card import Card
+from ex0 import Card
+from ex0 import CardRarity
 
 
 def get_public_methods(cls) -> list[str]:
@@ -15,7 +16,7 @@ def get_public_methods(cls) -> list[str]:
 def main() -> None:
     print("\n=== DataDeck Ability System ===\n")
 
-    warrior = EliteCard("Arcane Warrior", 6, "Epic", 5, 8)
+    warrior = EliteCard("Arcane Warrior", 6, CardRarity.EPIC, 5, 8)
 
     print(EliteCard.__qualname__, "capabilities:")
     classes_to_check = [Card, Combatable, Magical]

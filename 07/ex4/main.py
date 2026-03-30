@@ -9,8 +9,9 @@ def main():
 
     print("Registering Tournament Cards...\n")
 
-    card1 = TournamentCard("Fire Dragon", 5, "Legendary", 7)
-    card2 = TournamentCard("Ice Wizard", 4, "Rare", 5)
+    from ex0.CardEnums import CardRarity
+    card1 = TournamentCard("Fire Dragon", 5, CardRarity.LEGENDARY, 7)
+    card2 = TournamentCard("Ice Wizard", 4, CardRarity.RARE, 5)
 
     id1 = platform.register_card(card1)
     id2 = platform.register_card(card2)

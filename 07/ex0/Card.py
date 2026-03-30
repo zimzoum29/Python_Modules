@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
+from .CardEnums import CardRarity
 
 
 class Card(ABC):
 
-    def __init__(self, name: str, cost: int, rarity: str) -> None:
+    def __init__(self, name: str, cost: int, rarity: CardRarity) -> None:
         self.name = name
         self.cost = cost
         self.rarity = rarity
