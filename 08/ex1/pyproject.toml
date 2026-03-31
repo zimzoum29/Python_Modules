@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "matrix-project"
+name = "python module 8"
 version = "0.1.0"
 description = "Matrix data analysis project"
-authors = ["you"]
+authors = ["tigondra"]
+package-mode=false
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pandas = "*"
-numpy = "*"
-matplotlib = "*"
-requests = "*"
+python = "^3.11"
+pandas = "3.0.2"
+numpy = "2.4.4"
+matplotlib = "3.10.8"
 
 [build-system]
 requires = ["poetry-core"]

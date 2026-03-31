@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 
 def load_config():
-    """Load environment variables"""
     load_dotenv()
 
     config = {
@@ -20,7 +19,6 @@ def load_config():
 
 
 def validate_config(config):
-    """Check missing values"""
     missing = [k for k, v in config.items() if not v]
 
     if missing:
@@ -37,19 +35,16 @@ def display_config(config):
 
     print("Configuration loaded:")
     print(f"Mode: {config['MATRIX_MODE']}")
-    print(f"Database: {config['DATABASE_URL']}")
+    print(
+        f"Database: "
+        f"{'Connected to local instance' if config['DATABASE_URL'] else 'Disconnected'}")
     print(
         "API Access: "
         f"{'Authenticated' if config['API_KEY'] else 'Missing'}")
     print(f"Log Level: {config['LOG_LEVEL']}")
-    print(f"Zion Network: {config['ZION_ENDPOINT']}")
-
-
-def security_check():
-    print("\nEnvironment security check:")
-    print("[OK] No hardcoded secrets detected")
-    print("[OK] .env file properly configured")
-    print("[OK] Production overrides available\n")
+    print(
+        f"Zion Network: "
+        f"{'Online' if config['ZION_ENDPOINT'] else 'Offline'}")
 
 
 def main():
@@ -60,7 +55,10 @@ def main():
         return
 
     display_config(config)
-    security_check()
+    print("\nEnvironment security check:")
+    print("[OK] No hardcoded secrets detected")
+    print("[OK] .env file properly configured")
+    print("[OK] Production overrides available\n")
 
 
 if __name__ == "__main__":

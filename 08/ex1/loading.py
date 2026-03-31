@@ -1,74 +1,73 @@
+import sys
 import importlib
 
 
 REQUIRED_LIBS = ["pandas", "numpy", "matplotlib"]
 
 
-def check_dependencies():
-    """Check if required libraries are installed"""
-    print("Checking dependencies:\n")
-
-    available = {}
+def check_dependencies() -> dict:
+    results = {}
 
     for lib in REQUIRED_LIBS:
         try:
             module = importlib.import_module(lib)
             version = getattr(module, "__version__", "unknown")
-            print(f"[OK] {lib} ({version}) - Ready")
-            available[lib] = module
+            results[lib] = ("OK", version)
         except ImportError:
-            print(f"[FAIL] {lib} not installed")
-            available[lib] = None
+            results[lib] = ("MISSING", None)
 
-    return available
-
-
-def install_help():
-    print("\nTo install dependencies:")
-    print("pip install -r requirements.txt")
-    print("or")
-    print("poetry install\n")
+    return results
 
 
-def run_analysis(modules):
-    """Run fake data analysis"""
-    pandas = modules["pandas"]
-    numpy = modules["numpy"]
-    matplotlib = modules["matplotlib"]
+def print_dependencies(status: dict) -> bool:
+    print("Checking dependencies:")
 
-    if not all([pandas, numpy, matplotlib]):
-        print("\nMissing dependencies. Cannot run analysis.")
-        install_help()
-        return
+    all_ok = True
+
+    for lib, (state, version) in status.items():
+        if state == "OK":
+            print(f"[OK] {lib} ({version}) - Ready")
+        else:
+            print(f"[MISSING] {lib} - Install required")
+            all_ok = False
+
+    return all_ok
+
+
+def run_analysis() -> None:
+    import numpy
+    import pandas
+    import matplotlib.pyplot
+
+    data = numpy.random.rand(1000)
+    df = pandas.DataFrame(data, columns=["values"])
+    matplotlib.pyplot.hist(df["values"], bins=30)
+    matplotlib.pyplot.title("Matrix Data Distribution")
+    matplotlib.pyplot.savefig("matrix_analysis.png")
 
     print("\nAnalyzing Matrix data...")
-
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
-
-    data = np.random.randn(1000)
-    df = pd.DataFrame(data, columns=["values"])
-
     print("Processing 1000 data points...")
-
-    df.hist()
-    plt.title("Matrix Data Distribution")
-    plt.savefig("matrix_analysis.png")
+    print("Generating visualization...")
 
     print("\nAnalysis complete!")
     print("Results saved to: matrix_analysis.png")
 
 
-def main():
-    print("\nLOADING STATUS: Loading programs...\n")
+def main() -> None:
+    print("LOADING STATUS: Loading programs...\n")
 
-    modules = check_dependencies()
-    run_analysis(modules)
+    deps = check_dependencies()
+    ok = print_dependencies(deps)
+
+    if not ok:
+        print("\nInstall dependencies with:")
+        print("pip install -r requirements.txt")
+        print("or")
+        print("poetry install")
+        sys.exit(1)
+
+    run_analysis()
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print(f"Error: {e}")
+    main()
